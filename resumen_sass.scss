@@ -1,0 +1,303 @@
+/*////////////////////////////////////////
+// COMENTARIOS
+////////////////////////////////////////*/
+
+// Este comentario al compilar se pierde
+/*
+  Este comentario al compilar se mantiene
+*/
+
+/*////////////////////////////////////////
+// IMPORT
+//////////////////////////////////////////
+
+@import "foo.scss";	Se importa el archivo foo.scss
+@import "foo";	Se importa el archivo foo.scss
+
+Los ficheros con guion bajo al principio '_estilo.scss'
+se denominan hojas de estilos parciales.
+Estas se ignoran cuando se compila pero si se pueden
+importar en otras hojas definitivas.
+*/
+
+/*////////////////////////////////////////
+// ANIDAMIENTO Y SELECTOR PADRE
+////////////////////////////////////////*/
+#main {
+  width: 97%;
+
+  p, div {
+    font-size: 2em;
+    a { font-weight: bold; }
+    & { display: none;}
+  }
+
+  pre { font-size: 3em; }
+  & { display: none;}
+}
+
+#main {
+  color: black;
+  &-sidebar { border: 1px solid; }
+}
+
+.funky {
+  font: {
+    family: fantasy;
+    size: 30em;
+    weight: bold;
+  }
+}
+
+/*////////////////////////////////////////
+// OPERADORES
+////////////////////////////////////////*/
+
+.test-operadores {
+  // El carácter '/' se interpreta como código CSS normal
+  font: 10px/8px;
+  $width: 1000px;
+
+  // El carácter '/'  se interpreta como una división
+  width: $width/2;        // Uno de los operandos es una variable
+  width: round(1.5)/2;    // Uno de los operados es el resultado de una función
+  height: (500px/2);      // Los parénteis encierran la expresión
+  margin-left: 5px + 8px/2px; // El '+' indica que es una expresión matemática
+  width: 1em + (2em * 3); // paréntesis
+}
+
+.test-suma-colores {
+  color: #010203 + #040506;
+  color: #010203 * 2;
+  color: rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75);
+}
+
+.test-operador-concatenar-cadenas-1 {
+  cursor: e + -resize;
+}
+.test-operador-concatenar-cadenas-2 {
+  content: "Foo " + Bar;
+  font-family: sans- + "serif";
+}
+
+$translucent-red: rgba(255, 0, 0, 0.5);
+.test-operadores-opacidad{
+  color: opacify($translucent-red, 0.3);
+  background-color: transparentize($translucent-red, 0.25);
+}
+
+p {
+  // Argumentos con nombre
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
+}
+p {
+  $font-size: 12px;
+  $line-height: 30px;
+  font: #{$font-size}/#{$line-height};
+}
+
+/*///////////////////////////////////////
+// INTERPOLACIÓN
+///////////////////////////////////////*/
+
+$name: foo;
+$attr: border;
+
+p.#{$name} {
+  #{$attr}-color: blue;
+}
+
+/*///////////////////////////////////////
+// IF / ELSE
+///////////////////////////////////////*/
+
+$type: monster;
+.test-if-else {
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}
+
+/*///////////////////////////////////////
+// FOR
+///////////////////////////////////////*/
+
+@for $i from 1 through 3 {
+  .test-for-#{$i} { width: 2em * $i; }
+}
+
+/*///////////////////////////////////////
+// EACH
+///////////////////////////////////////*/
+
+@each $animal in puma, sea-slug, egret, salamander {
+  .test-each-#{$animal} {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+
+@each $animal, $color, $cursor in (puma, black, default),
+                                  (sea-slug, blue, pointer),
+                                  (egret, white, move) {
+  .test-each-multiple-#{$animal} {
+    background-image: url('/images/#{$animal}.png');
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+
+/*///////////////////////////////////////
+// WHILE
+///////////////////////////////////////*/
+
+$i: 6;
+@while $i > 0 {
+  .test-while-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}
+
+/*///////////////////////////////////////
+// MIXINS
+///////////////////////////////////////*/
+
+@mixin large-text ($size:40px) {
+  font: {
+    family: Arial;
+    weight: bold;
+  }
+  @if $size < 100 {font-size: $size;}
+  @else{ font-size: 100px;}
+  &:after {
+    visibility: hidden;
+  }
+  color: #ff0000;
+}
+.test-mixin-1{
+  @include large-text(20px);
+}
+.test-mixin-2{
+  @include large-text();
+}
+.test-mixin-3{
+  @include large-text(150px);
+}
+
+
+@mixin colors($text, $background, $border) {
+  color: $text;
+  background-color: $background;
+  border-color: $border;
+}
+$values: #ff0000, #00ff00, #0000ff;
+.mixin-parametros-lista {
+  @include colors($values...);
+}
+$value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
+.mixin-parametros-mapa {
+  @include colors($value-map...);
+}
+
+
+$color: white;
+@mixin colors($color: blue) {
+  background-color: $color;
+  @content;
+  border-color: $color;
+}
+.mixin-uso-content-1 {
+  @include colors { color: $color; }
+}
+
+.mixin-uso-content-2 {
+  @include colors(red) { color: $color; }
+}
+
+/*///////////////////////////////////////
+// FUNCIONES
+///////////////////////////////////////*/
+
+$grid-width: 40px;
+$gutter-width: 10px;
+
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+.test-funcion{
+  width: grid-width(2);
+}
+
+/*///////////////////////////////////////
+// EXTEND
+///////////////////////////////////////*/
+
+.text-extend-1 {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+.text-extend-1.sub {
+  background-image: url("/image/hacked.png");
+}
+.text-extend-2 {
+  @extend .text-extend-1;
+  border-width: 3px;
+}
+
+
+.hoverlink {
+  @extend a:hover;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+.error {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+.attention {
+  font-size: 3em;
+  background-color: #ff0;
+}
+.seriousError {
+  @extend .error;
+  @extend .attention;
+  border-width: 3px;
+}
+
+
+#fake-links .link {
+  @extend a;
+}
+
+a {
+  color: blue;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+
+/*///////////////////////////////////////
+// DEFAULT
+///////////////////////////////////////*/
+// Si una variable ya tenía un valor asignado, !default
+// hace que se mantenga sin cambios. Si la variable no
+// existía o no tenía ningún valor, se utiliza el nuevo
+// valor asignado
+
+$contenido: "Primer contenido";
+$contenido: "¿Segundo contenido?" !default;
+$nuevo_contenido: "Tercer contenido" !default;
+
+#main {
+  contenido: $contenido;
+  nuevo-contenido: $nuevo_contenido;
+}

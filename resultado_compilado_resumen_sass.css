@@ -1,0 +1,286 @@
+@charset "UTF-8";
+/*////////////////////////////////////////
+// COMENTARIOS
+////////////////////////////////////////*/
+/*
+  Este comentario al compilar se mantiene
+*/
+/*////////////////////////////////////////
+// IMPORT
+//////////////////////////////////////////
+
+@import "foo.scss";	Se importa el archivo foo.scss
+@import "foo";	Se importa el archivo foo.scss
+
+Los ficheros con guion bajo al principio '_estilo.scss'
+no se compilan pero pueden importarse como
+hojas de estilos parciales
+*/
+/*////////////////////////////////////////
+// ANIDAMIENTO Y SELECTOR PADRE
+////////////////////////////////////////*/
+#main {
+  width: 97%;
+}
+#main p, #main div {
+  font-size: 2em;
+}
+#main p a, #main p #fake-links .link, #fake-links #main p .link, #main div a, #main div #fake-links .link, #fake-links #main div .link {
+  font-weight: bold;
+}
+#main p, #main div {
+  display: none;
+}
+#main pre {
+  font-size: 3em;
+}
+#main {
+  display: none;
+}
+
+#main {
+  color: black;
+}
+#main-sidebar {
+  border: 1px solid;
+}
+
+.funky {
+  font-family: fantasy;
+  font-size: 30em;
+  font-weight: bold;
+}
+
+/*////////////////////////////////////////
+// OPERADORES
+////////////////////////////////////////*/
+.test-operadores {
+  font: 10px/8px;
+  width: 500px;
+  width: 1;
+  height: 250px;
+  margin-left: 9px;
+  width: 7em;
+}
+
+.test-suma-colores {
+  color: #050709;
+  color: #020406;
+  color: rgba(255, 255, 0, 0.75);
+}
+
+.test-operador-concatenar-cadenas-1 {
+  cursor: e-resize;
+}
+
+.test-operador-concatenar-cadenas-2 {
+  content: "Foo Bar";
+  font-family: sans-serif;
+}
+
+.test-operadores-opacidad {
+  color: rgba(255, 0, 0, 0.8);
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+p {
+  color: red;
+}
+
+p {
+  font: 12px/30px;
+}
+
+/*///////////////////////////////////////
+// INTERPOLACIÓN
+///////////////////////////////////////*/
+p.foo {
+  border-color: blue;
+}
+
+/*///////////////////////////////////////
+// IF / ELSE
+///////////////////////////////////////*/
+.test-if-else {
+  color: green;
+}
+
+/*///////////////////////////////////////
+// FOR
+///////////////////////////////////////*/
+.test-for-1 {
+  width: 2em;
+}
+
+.test-for-2 {
+  width: 4em;
+}
+
+.test-for-3 {
+  width: 6em;
+}
+
+/*///////////////////////////////////////
+// EACH
+///////////////////////////////////////*/
+.test-each-puma {
+  background-image: url("/images/puma.png");
+}
+
+.test-each-sea-slug {
+  background-image: url("/images/sea-slug.png");
+}
+
+.test-each-egret {
+  background-image: url("/images/egret.png");
+}
+
+.test-each-salamander {
+  background-image: url("/images/salamander.png");
+}
+
+.test-each-multiple-puma {
+  background-image: url("/images/puma.png");
+  border: 2px solid black;
+  cursor: default;
+}
+
+.test-each-multiple-sea-slug {
+  background-image: url("/images/sea-slug.png");
+  border: 2px solid blue;
+  cursor: pointer;
+}
+
+.test-each-multiple-egret {
+  background-image: url("/images/egret.png");
+  border: 2px solid white;
+  cursor: move;
+}
+
+/*///////////////////////////////////////
+// WHILE
+///////////////////////////////////////*/
+.test-while-6 {
+  width: 12em;
+}
+
+.test-while-4 {
+  width: 8em;
+}
+
+.test-while-2 {
+  width: 4em;
+}
+
+/*///////////////////////////////////////
+// MIXINS
+///////////////////////////////////////*/
+.test-mixin-1 {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ff0000;
+}
+.test-mixin-1:after {
+  visibility: hidden;
+}
+
+.test-mixin-2 {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 40px;
+  color: #ff0000;
+}
+.test-mixin-2:after {
+  visibility: hidden;
+}
+
+.test-mixin-3 {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 100px;
+  color: #ff0000;
+}
+.test-mixin-3:after {
+  visibility: hidden;
+}
+
+.mixin-parametros-lista {
+  color: #ff0000;
+  background-color: #00ff00;
+  border-color: #0000ff;
+}
+
+.mixin-parametros-mapa {
+  color: #00ff00;
+  background-color: #0000ff;
+  border-color: #ff0000;
+}
+
+.mixin-uso-content-1 {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+
+.mixin-uso-content-2 {
+  background-color: red;
+  color: white;
+  border-color: red;
+}
+
+/*///////////////////////////////////////
+// FUNCIONES
+///////////////////////////////////////*/
+.test-funcion {
+  width: 90px;
+}
+
+/*///////////////////////////////////////
+// EXTEND
+///////////////////////////////////////*/
+.text-extend-1, .text-extend-2 {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.text-extend-1.sub, .sub.text-extend-2 {
+  background-image: url("/image/hacked.png");
+}
+
+.text-extend-2 {
+  border-width: 3px;
+}
+
+a:hover, .hoverlink, #fake-links .link:hover {
+  text-decoration: underline;
+}
+
+.error, .seriousError {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.attention, .seriousError {
+  font-size: 3em;
+  background-color: #ff0;
+}
+
+.seriousError {
+  border-width: 3px;
+}
+
+a, #fake-links .link {
+  color: blue;
+}
+a:hover, .hoverlink, #fake-links .link:hover {
+  text-decoration: underline;
+}
+
+/*///////////////////////////////////////
+// DEFAULT
+///////////////////////////////////////*/
+#main {
+  contenido: "Primer contenido";
+  nuevo-contenido: "Tercer contenido";
+}
